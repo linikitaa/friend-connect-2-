@@ -1,0 +1,20 @@
+.Sidebar {
+  border: 1px solid #468571;
+  min-height: calc(100vh - 160px);
+  border-radius: 5px;
+  padding: 20px 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  position: relative;
+}
+
+.themeBtn {
+  cursor: pointer;
+  position: absolute;
+  bottom: 30px;
+  left: calc((100% / 2) - 13px);
+}

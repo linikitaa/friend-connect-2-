@@ -1,9 +1,5 @@
 'use client'
 
 export default function ChatPage() {
-  return (
-    <div>
-      Chat
-    </div>
-  );
+  return <div>Chat</div>
 }
