@@ -4,6 +4,7 @@ import './_styles/globals.css'
 import BaseLayout from '@/shared/components/BaseLayout/BaseLayout'
 import { ReactNode } from 'react'
 import { cookies } from 'next/headers'
+import { ReduxProvider } from '@/shared/components/providers/ReduxProvider/ReduxProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,7 +34,9 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased ${theme}`}
       >
-        <BaseLayout>{children}</BaseLayout>
+        <ReduxProvider>
+          <BaseLayout>{children}</BaseLayout>
+        </ReduxProvider>
       </body>
     </html>
   )

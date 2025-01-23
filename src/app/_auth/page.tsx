@@ -1,6 +1,6 @@
-import { Label } from '@/shared/ui/label'
+'use client'
 
-import { Button } from '@/shared/ui/button'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import {
   Dialog,
   DialogContent,
@@ -10,12 +10,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/shared/ui/dialog'
+import { Button } from '@/shared/ui/button'
+import { Label } from '@/shared/ui/label'
 import { Input } from '@/shared/ui/input'
-interface Props {
-  className?: string
+import { useGetMeQuery, useLoginMutation } from '@/features/auth'
+import { useAppDispatch } from '@/store/store'
+
+interface IFormInput {
+  email: string
+  password: string
+  rememberMe: boolean
 }
 
-export default function LoginModal({}: Props) {
+export default function LoginForm() {
+  const {} = useGetMeQuery()
+  const [login] = useLoginMutation()
+  const { register, handleSubmit } = useForm<IFormInput>()
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    // e.preventDefault()
+    login(data)
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,33 +42,42 @@ export default function LoginModal({}: Props) {
           <DialogDescription>Email: free@samuraijs.com</DialogDescription>
           <DialogDescription>Password: free</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">
-              E-mail
-            </Label>
-            <Input
-              id="email"
-              defaultValue="Pedro Duarte"
-              className="col-span-3"
-            />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="email" className="text-right">
+                E-mail
+              </Label>
+              <Input
+                {...register('email')}
+                id="email"
+                defaultValue="free@samuraijs.com"
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="password" className="text-right">
+                Password
+              </Label>
+              <Input
+                {...register('password')}
+                id="password"
+                defaultValue="free"
+                className="col-span-3"
+              />
+            </div>
+            <div className="flex gap-2">
+              <Label htmlFor="rememberMe" className="text-sm  leading-none ">
+                Remember me
+              </Label>
+              <input type="checkbox" {...register('rememberMe')} />
+            </div>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="password" className="text-right">
-              Password
-            </Label>
-            <Input
-              id="password"
-              defaultValue="@peduarte"
-              className="col-span-3"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button size={'lg'} type="submit">
-            Log in
-          </Button>
-        </DialogFooter>
+
+          <DialogFooter>
+            <Input type="submit" value={'Login'} />
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   )
