@@ -30,9 +30,9 @@ export default async function RootLayout({
   const theme = (await cookieStore).get('theme')?.value || 'light'
 
   return (
-    <html lang="en">
+    <html lang="en" className={theme}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased ${theme}`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <ReduxProvider>
           <BaseLayout>{children}</BaseLayout>

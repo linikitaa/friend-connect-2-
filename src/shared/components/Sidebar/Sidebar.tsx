@@ -2,7 +2,6 @@
 
 import { clsx } from 'clsx'
 import s from './sidebar.module.css'
-import Link from 'next/link'
 import ThemeToggle from '@/shared/components/providers/ThemeProvider/ToggleTheme'
 import { ProfileIcon } from '@/shared/image/icons/ProfileIcon'
 import { UsersIcon } from 'lucide-react'
