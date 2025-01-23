@@ -8,6 +8,19 @@ body {
 
 @layer base {
   :root {
+    --navbar-background: #427d9d;
+    --sidebar-background: #ddf2fd;
+    --border-color: #869aa1;
+    --main-shadow-100: 1px 1px 2px 0 rgba(0, 0, 0, .3);
+    --font-color-100: #fff;
+    --main-shadow-200: 1px 1px 10px 0 rgba(0, 0, 0, .5);
+    --main-color-100: #ddf2fd;
+    --main-color-300: #427d9d;
+    --main-color-400: #164863;
+    --main-color-500: #04364a;
+
+
+
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -35,6 +48,11 @@ body {
     --radius: 0.5rem;
   }
   .dark {
+    --navbar-background: #2b3539;
+    --sidebar-background: #2b3539;
+    --border-color: #3e6a85;
+
+
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;

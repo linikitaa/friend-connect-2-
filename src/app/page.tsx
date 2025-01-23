@@ -10,5 +10,5 @@ export default function Home() {
     router.replace('/profile')
   }, [router])
 
-  return null // Ничего не рендерим, так как сразу выполняется редирект
+  return null
 }

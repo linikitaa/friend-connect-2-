@@ -1,5 +1,7 @@
 .Sidebar {
-  border: 1px solid #468571;
+  background-color: var(--sidebar-background);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--main-shadow-100);
   min-height: calc(100vh - 160px);
   border-radius: 5px;
   padding: 20px 10px;
@@ -7,6 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   gap: 5px;
 
   position: relative;

@@ -1,8 +1,10 @@
 .navbar {
+    background-color: var(--navbar-background);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--main-shadow-100);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #ff6c00;
     border-radius: 5px;
     padding: 0 20px;
 }

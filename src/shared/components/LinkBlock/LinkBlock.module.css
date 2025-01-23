@@ -1,0 +1,57 @@
+.link {
+    background-color: #f0f6f6;
+    border-radius: 5px;
+    box-shadow: var(--main-shadow-100);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-decoration: none;
+    width: 178px;
+
+    align-items: center;
+
+    font-size: 16px;
+    font-weight: 600;
+    &:hover {
+        background-color: var(--font-color-100);
+        box-shadow: var(--main-shadow-200)
+
+    }
+    &:visited {
+        color: var(--main-color-500);
+    }
+
+    &:active {
+        background-color: var(--main-color-300);
+    }
+
+    &:active span, &:active .icon {
+        color: var(--font-color-100);
+    }
+}
+
+.active {
+    background-color: var(--main-color-300);
+
+    &:hover {
+        background-color: var(--font-color-100);
+    }
+}
+
+.active span, .active .icon {
+    color: var(--font-color-100);
+
+    &:hover {
+        color: var(--main-color-400);
+    }
+}
+
+.active:hover span, .active:hover .icon {
+    color: var(--main-color-400);
+
+}
+
+.linkText {
+    text-decoration: none;
+}
