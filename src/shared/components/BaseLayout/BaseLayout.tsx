@@ -9,7 +9,7 @@ type LayoutProps = {
 export default function BaseLayout({ children }: LayoutProps) {
   return (
     <div className={s.container}>
-      <Navbar className={s.navbarWrap}>Friend connect</Navbar>
+      <Navbar className={s.navbarWrap} />
       <Sidebar className={s.sidebarWrap} />
       <main className={s.main}>{children}</main>
     </div>

@@ -1,11 +1,20 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithAccessToken } from '@/store/auth/base-query'
 
 type ResponseType = {
   resultCode: number
   messages: string[]
   data: LoginType
 }
-
+type LoginResponse = {
+  data: {
+    userId: number
+    token: string
+  }
+  messages: string[]
+  fieldsErrors: string[]
+  resultCode: number
+}
 type LoginType = {
   id: number
   email: string
@@ -18,21 +27,14 @@ type IFormInput = {
 }
 export const authAPI = createApi({
   reducerPath: 'authAPI',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://social-network.samuraijs.com/api/1.0/auth',
-    prepareHeaders: (headers) => {
-      headers.set('API-KEY', 'ddeb87c9-686e-4e79-b6dc-c67a6789e900')
-      return headers
-    },
-    credentials: 'include',
-  }),
+  baseQuery: baseQueryWithAccessToken,
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
     getMe: builder.query<ResponseType, void>({
       query: () => `/me`,
       providesTags: ['Auth'],
     }),
-    login: builder.mutation<{ userId: number; token: string }, IFormInput>({
+    login: builder.mutation<LoginResponse, IFormInput>({
       query: (authData) => ({
         url: `/login`,
         method: 'POST',
@@ -41,9 +43,9 @@ export const authAPI = createApi({
       invalidatesTags: ['Auth'],
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled
-          console.log(data)
-          // sessionStorage.setItem('access-token', data.token)
+          const res = await queryFulfilled
+          const token = res.data?.data.token
+          sessionStorage.setItem('access-token', token)
         } catch (err) {
           console.log(err)
         }

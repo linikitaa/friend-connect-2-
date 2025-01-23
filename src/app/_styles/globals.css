@@ -10,7 +10,7 @@ body {
   :root {
     --navbar-background: #427d9d;
     --sidebar-background: #ddf2fd;
-    --border-color: #869aa1;
+    --border-color: #caedf9;
     --main-shadow-100: 1px 1px 2px 0 rgba(0, 0, 0, .3);
     --font-color-100: #fff;
     --main-shadow-200: 1px 1px 10px 0 rgba(0, 0, 0, .5);
@@ -18,7 +18,7 @@ body {
     --main-color-300: #427d9d;
     --main-color-400: #164863;
     --main-color-500: #04364a;
-
+      --navbar-height: 70px;
 
 
     --background: 0 0% 100%;
