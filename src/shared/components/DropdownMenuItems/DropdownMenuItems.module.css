@@ -1,0 +1,8 @@
+.icon {
+    fill: var(--main-color-100);
+    transition: 0.3s fill;
+    &:hover {
+        fill: var(--font-color-100-hover);
+
+    }
+}

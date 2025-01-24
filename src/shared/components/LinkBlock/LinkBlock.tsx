@@ -1,14 +1,13 @@
 import s from './LinkBlock.module.css'
-import clsx from 'clsx'
 import Link from 'next/link'
-import { MenuItems } from '@/shared/components/Sidebar/Sidebar'
+import { MenuItems } from '@/shared/lib/linkItems/linkItems'
 
 interface Props {
   className?: string
   item: MenuItems
 }
 
-export const LinkBlock = ({ className, item }: Props) => {
+export const LinkBlock = ({ item }: Props) => {
   return (
     <Link
       className={s.link}

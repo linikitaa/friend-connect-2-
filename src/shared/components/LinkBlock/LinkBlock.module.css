@@ -1,20 +1,19 @@
 .link {
-    background-color: #f0f6f6;
+    background-color: var(--sidebar-items-background);
     border-radius: 5px;
     box-shadow: var(--main-shadow-100);
     display: flex;
-    gap: 10px;
+    align-items: center;
+
     margin-bottom: 10px;
     padding: 10px;
     text-decoration: none;
     width: 178px;
 
-    align-items: center;
-
     font-size: 16px;
     font-weight: 600;
     &:hover {
-        background-color: var(--font-color-100);
+        background-color: var(--font-color-100-hover);
         box-shadow: var(--main-shadow-200)
 
     }
@@ -51,7 +50,38 @@
     color: var(--main-color-400);
 
 }
-
+.icon {
+    margin-right: 10px;
+}
 .linkText {
     text-decoration: none;
+}
+
+@media (max-width: 778px) {
+    .link {
+        width: 45px;
+    }
+    .linkText {
+        display: none;
+    }
+    .icon {
+        margin-right: 0;
+    }
+}
+@media (max-width: 440px) {
+    .link {
+        background-color: var(--background);
+
+        justify-content: center;
+        width: 100%;
+        padding: 5px;
+    }
+    .linkText {
+        display: block;
+        color: var(--main-color-100);
+    }
+    .icon {
+        margin-right: 10px;
+        color: var(--main-color-100);
+    }
 }

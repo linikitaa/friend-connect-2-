@@ -21,3 +21,12 @@
   bottom: 30px;
   left: calc((100% / 2) - 13px);
 }
+
+@media (max-width: 768px) {
+  /*.container {*/
+  /*    grid-template-columns: 100px auto; !* sidebar и main будут занимать всю ширину *!*/
+  /*    grid-template-rows: 64px auto auto; !* Каждая область занимает свою строку *!*/
+  /*}*/
+
+
+}

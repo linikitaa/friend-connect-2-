@@ -3,28 +3,12 @@
 import { clsx } from 'clsx'
 import s from './sidebar.module.css'
 import ThemeToggle from '@/shared/components/providers/ThemeProvider/ToggleTheme'
-import { ProfileIcon } from '@/shared/image/icons/ProfileIcon'
-import { UsersIcon } from 'lucide-react'
-import { ChatIcon } from '@/shared/image/icons/ChatIcon'
-import { NewsIcon } from '@/shared/image/icons/NewsIcon'
 import { LinkBlock } from '@/shared/components/LinkBlock/LinkBlock'
-import { ReactNode } from 'react'
+import { menuItems } from '@/shared/lib/linkItems/linkItems'
 
 type SidebarProps = {
   className?: string
 }
-
-export type MenuItems = {
-  id: string
-  title: string
-  icon: ReactNode
-}
-const menuItems: MenuItems[] = [
-  { id: 'profile', title: 'Profile', icon: <ProfileIcon /> },
-  { id: 'users', title: 'Users', icon: <UsersIcon /> },
-  { id: 'chat', title: 'Chat', icon: <ChatIcon /> },
-  { id: 'news', title: 'News', icon: <NewsIcon /> },
-]
 
 export default function Sidebar({ className }: SidebarProps) {
   return (

@@ -8,7 +8,6 @@
     padding: 0 10px;
     margin: 10px auto;
     max-width: 1140px;
-    height: calc(100vh - 100px);
 }
 .navbarWrap {
     grid-column: 1 / -1;
@@ -17,14 +16,32 @@
     grid-row-start: 2;
     grid-column-start: 1
 }
-
-
 .main {
     border: 1px solid var(--border-color);
     box-shadow: var(--main-shadow-100);
     grid-column-start: 2;
     grid-row-start: 2;
-    min-height: calc(100vh - 180px);
+    min-height: calc(100vh - 110px);
     padding: 20px;
     border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 80px auto; /* sidebar и main будут занимать всю ширину */
+        grid-template-rows: 64px auto auto; /* Каждая область занимает свою строку */
+    }
+
+
+}
+@media (max-width: 440px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    .sidebarWrap {
+        display: none; /* Скрываем sidebar */
+    }
+    .main {
+        grid-column: 1 / -1; /* Растягиваем main на всю ширину */
+    }
 }

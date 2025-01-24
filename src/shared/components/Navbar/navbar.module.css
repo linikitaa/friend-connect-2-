@@ -8,3 +8,19 @@
     border-radius: 5px;
     padding: 0 20px;
 }
+
+
+.mobileMenu{
+    display: none;
+}
+
+.logBtn {}
+
+@media (max-width: 440px) {
+    .mobileMenu{
+        display: inline-block;
+    }
+    .logBtn {
+        display: none;
+    }
+}
