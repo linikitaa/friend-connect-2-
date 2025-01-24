@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { baseQueryWithAccessToken } from '@/store/auth/base-query'
+import { baseQueryWithReauth } from '@/features/auth/base-query'
 
 type ResponseType = {
   resultCode: number
@@ -27,7 +27,7 @@ type IFormInput = {
 }
 export const authAPI = createApi({
   reducerPath: 'authAPI',
-  baseQuery: baseQueryWithAccessToken,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
     getMe: builder.query<ResponseType, void>({
@@ -41,11 +41,12 @@ export const authAPI = createApi({
         body: authData,
       }),
       invalidatesTags: ['Auth'],
-      async onQueryStarted(arg, { queryFulfilled }) {
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled
           const token = res.data?.data.token
           sessionStorage.setItem('access-token', token)
+          await dispatch(authAPI.endpoints.getMe.initiate())
         } catch (err) {
           console.log(err)
         }
@@ -59,6 +60,10 @@ export const authAPI = createApi({
         }
       },
       invalidatesTags: ['Auth'],
+      // async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      //   const res = await queryFulfilled
+      //   await dispatch(authAPI.util.invalidateTags['me'])
+      // },
     }),
   }),
 })

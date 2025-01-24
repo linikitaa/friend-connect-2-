@@ -2,36 +2,23 @@
 
 import s from './navbar.module.css'
 import { clsx } from 'clsx'
-import LoginForm from '@/app/_auth/page'
+import LoginForm from '@/app/(auth)/page'
 import { useGetMeQuery, useLogOutMutation } from '@/features/auth'
 import { Button } from '@/shared/ui/button'
 import { PageLoader } from '@/shared/components/PageLoader/PageLoader'
-import { useState } from 'react'
-import { LinkBlock } from '@/shared/components/LinkBlock/LinkBlock'
-import { menuItems } from '@/shared/lib/linkItems/linkItems'
 import { DropdownMenuItems } from '@/shared/components/DropdownMenuItems/DropdownMenuItems'
 
 type NavbarProps = {
   className?: string
-  isSidebarVisible: boolean
-  setIsSidebarVisible: (visible: boolean) => void
 }
 
-export default function Navbar({
-  className,
-  isSidebarVisible,
-  setIsSidebarVisible,
-}: NavbarProps) {
+export default function Navbar({ className }: NavbarProps) {
   const { data, isError, isLoading } = useGetMeQuery()
   const [logout, { isLoading: isLoggingOut }] = useLogOutMutation()
 
   const logOutHandler = () => {
+    sessionStorage.removeItem('access-token')
     logout()
-  }
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
   }
 
   if (isLoading) {
