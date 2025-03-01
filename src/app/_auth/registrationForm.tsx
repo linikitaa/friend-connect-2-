@@ -15,6 +15,7 @@ import { Input } from '@/shared/ui/input'
 import { useAuth } from '@/store/AuthContext'
 
 interface IFormInput {
+  login: string
   email: string
   password: string
   rememberMe: boolean
@@ -23,15 +24,16 @@ interface IFormInput {
 export default function RegistrationForm() {
   const auth = useAuth()
   const { register, handleSubmit } = useForm<IFormInput>()
-  const onSubmit: SubmitHandler<IFormInput> = () => {
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
     // e.preventDefault()
     // auth.register()
+    auth.sigIn(data.login, data.email, data.password, data.rememberMe)
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary">Register</Button>
+        <Button variant="secondary">Sign In</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -40,15 +42,16 @@ export default function RegistrationForm() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="login" className="text-right">
+                Login
+              </Label>
+              <Input {...register('login')} id="login" className="col-span-3" />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="email" className="text-right">
                 E-mail
               </Label>
-              <Input
-                {...register('email')}
-                id="email"
-                defaultValue="free@samuraijs.com"
-                className="col-span-3"
-              />
+              <Input {...register('email')} id="email" className="col-span-3" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="password" className="text-right">
@@ -57,7 +60,6 @@ export default function RegistrationForm() {
               <Input
                 {...register('password')}
                 id="password"
-                defaultValue="free"
                 className="col-span-3"
               />
             </div>
@@ -70,7 +72,7 @@ export default function RegistrationForm() {
           </div>
 
           <DialogFooter>
-            <Input type="submit" value={'Register'} />
+            <Input type="submit" value={'Sign in'} />
           </DialogFooter>
         </form>
       </DialogContent>

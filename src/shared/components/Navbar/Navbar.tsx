@@ -8,7 +8,6 @@ import LoginForm from '@/app/_auth/loginForm'
 import RegistrationForm from '@/app/_auth/registrationForm'
 import { observer } from 'mobx-react-lite'
 import { useAuth } from '@/store/AuthContext'
-import { ACCESS_TOKEN } from '@/store/AuthStore'
 
 type NavbarProps = {
   className?: string
@@ -18,7 +17,6 @@ const Navbar = observer(({ className }: NavbarProps) => {
   const auth = useAuth()
 
   const logOutHandler = () => {
-    sessionStorage.removeItem(ACCESS_TOKEN)
     auth.logout()
   }
 
@@ -28,8 +26,10 @@ const Navbar = observer(({ className }: NavbarProps) => {
         <div>
           <p>Friend</p> connect
         </div>
-        <RegistrationForm />
-        <LoginForm />
+        <div className={s.SignBtn}>
+          <RegistrationForm />
+          <LoginForm />
+        </div>
       </div>
     )
   }

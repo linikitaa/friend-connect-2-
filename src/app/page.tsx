@@ -1,14 +1,16 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { observer } from 'mobx-react-lite'
 
-export default function Home() {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.replace('/profile')
-  }, [router])
+const Home = observer(() => {
+  // const auth = useAuth()
+  // const router = useRouter()
+  // useEffect(() => {
+  //   if (!auth.isAuth) {
+  //     router.replace('/profile')
+  //   }
+  // }, [auth.isAuth, router])
 
   return null
-}
+})
+export default Home

@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 interface IUserResponse {
   data: {
@@ -6,7 +6,14 @@ interface IUserResponse {
     email: string
     login: string
   }
+  token: string
 }
+// interface IUserRequest {
+//   login: string
+//   email: string
+//   password: string
+//   remember?: boolean
+// }
 
 export const ACCESS_TOKEN = 'access-token'
 
@@ -19,12 +26,17 @@ class AuthStore {
     makeAutoObservable(this)
   }
 
-  async register(email: string, password: string) {
+  async sigIn(
+    login: string,
+    email: string,
+    password: string,
+    remember?: boolean,
+  ) {
     try {
       const response = await fetch('http://localhost:8080/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ login, email, password, remember }),
         credentials: 'include',
       })
 
@@ -32,9 +44,11 @@ class AuthStore {
 
       const data = await response.json()
       console.log('data.token', data.accessToken)
-      this.token = data.accessToken
-      this.user = data
-      this.isAuth = true
+      runInAction(() => {
+        this.token = data.accessToken
+        this.user = data
+        this.isAuth = true
+      })
       sessionStorage.setItem(ACCESS_TOKEN, data.accessToken)
     } catch (error) {
       console.error(error)
@@ -54,8 +68,10 @@ class AuthStore {
 
       const data = await response.json()
       this.token = data.accessToken
-      this.user = data
-      this.isAuth = true
+      runInAction(() => {
+        this.user = data
+        this.isAuth = true
+      })
       sessionStorage.setItem(ACCESS_TOKEN, data.accessToken)
     } catch (error) {
       console.error(error)
@@ -72,7 +88,6 @@ class AuthStore {
   async checkAuth() {
     this.token = sessionStorage.getItem(ACCESS_TOKEN)
     if (!this.token) return
-    console.log('this.token', this.token)
     try {
       const response = await fetch('http://localhost:8080/api/auth/me', {
         headers: { Authorization: `Bearer ${this.token}` },
@@ -80,8 +95,10 @@ class AuthStore {
       })
       if (!response.ok) throw new Error('Не авторизован')
       const data = await response.json()
-      this.user = data
-      this.isAuth = true
+      runInAction(() => {
+        this.user = data
+        this.isAuth = true
+      })
     } catch (error) {
       this.isAuth = false
       console.log(error)

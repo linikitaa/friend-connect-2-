@@ -14,7 +14,10 @@
     display: none;
 }
 
-.logBtn {}
+.SignBtn {
+    display: flex;
+    gap: 10px;
+}
 
 @media (max-width: 440px) {
     .mobileMenu{
