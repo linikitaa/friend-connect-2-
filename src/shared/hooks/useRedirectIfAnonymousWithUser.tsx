@@ -1,17 +1,16 @@
 import { useRouter } from 'next/navigation'
-import { useGetMeQuery } from '@/features/auth'
 import { useEffect } from 'react'
+import { useAuth } from '@/store/AuthContext'
 
 export const useRedirectIfAnonymousWithUser = () => {
   const router = useRouter()
-  const { data, isFetching } = useGetMeQuery()
-  console.log(data)
+  const auth = useAuth()
+
   useEffect(() => {
-    if (isFetching) return // Подождите, пока запрос завершится
-    if (!data?.data.id) {
+    if (!auth.isAuth) {
       router.push('/not_auth')
     }
-  }, [data, isFetching])
+  }, [auth])
 
-  return data
+  return auth
 }

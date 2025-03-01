@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -13,8 +12,7 @@ import {
 import { Button } from '@/shared/ui/button'
 import { Label } from '@/shared/ui/label'
 import { Input } from '@/shared/ui/input'
-import { useGetMeQuery, useLoginMutation } from '@/features/auth'
-import { useAppDispatch } from '@/store/store'
+import { useAuth } from '@/store/AuthContext'
 
 interface IFormInput {
   email: string
@@ -22,25 +20,22 @@ interface IFormInput {
   rememberMe: boolean
 }
 
-export default function LoginForm() {
-  const {} = useGetMeQuery()
-  const [login] = useLoginMutation()
+export default function RegistrationForm() {
+  const auth = useAuth()
   const { register, handleSubmit } = useForm<IFormInput>()
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+  const onSubmit: SubmitHandler<IFormInput> = () => {
     // e.preventDefault()
-    login(data)
+    // auth.register()
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary">Login</Button>
+        <Button variant="secondary">Register</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Enter your email and password</DialogTitle>
-          <DialogDescription>Email: free@samuraijs.com</DialogDescription>
-          <DialogDescription>Password: free</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
@@ -75,7 +70,7 @@ export default function LoginForm() {
           </div>
 
           <DialogFooter>
-            <Input type="submit" value={'Login'} />
+            <Input type="submit" value={'Register'} />
           </DialogFooter>
         </form>
       </DialogContent>

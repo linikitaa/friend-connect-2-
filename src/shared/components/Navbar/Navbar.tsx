@@ -2,42 +2,33 @@
 
 import s from './navbar.module.css'
 import { clsx } from 'clsx'
-import LoginForm from '@/app/(auth)/page'
-import { useGetMeQuery, useLogOutMutation } from '@/features/auth'
 import { Button } from '@/shared/ui/button'
-import { PageLoader } from '@/shared/components/PageLoader/PageLoader'
 import { DropdownMenuItems } from '@/shared/components/DropdownMenuItems/DropdownMenuItems'
+import LoginForm from '@/app/_auth/loginForm'
+import RegistrationForm from '@/app/_auth/registrationForm'
+import { observer } from 'mobx-react-lite'
+import { useAuth } from '@/store/AuthContext'
+import { ACCESS_TOKEN } from '@/store/AuthStore'
 
 type NavbarProps = {
   className?: string
 }
 
-export default function Navbar({ className }: NavbarProps) {
-  const { data, isError, isLoading } = useGetMeQuery()
-  const [logout, { isLoading: isLoggingOut }] = useLogOutMutation()
+const Navbar = observer(({ className }: NavbarProps) => {
+  const auth = useAuth()
 
   const logOutHandler = () => {
-    sessionStorage.removeItem('access-token')
-    logout()
+    sessionStorage.removeItem(ACCESS_TOKEN)
+    auth.logout()
   }
 
-  if (isLoading) {
+  if (!auth.isAuth) {
     return (
       <div className={clsx(s.navbar, className)}>
         <div>
           <p>Friend</p> connect
         </div>
-        <PageLoader />
-      </div>
-    )
-  }
-
-  if (isError || !data || data.resultCode !== 0) {
-    return (
-      <div className={clsx(s.navbar, className)}>
-        <div>
-          <p>Friend</p> connect
-        </div>
+        <RegistrationForm />
         <LoginForm />
       </div>
     )
@@ -48,11 +39,7 @@ export default function Navbar({ className }: NavbarProps) {
       <div>
         <p>Friend</p> connect
       </div>
-      <Button
-        className={s.logBtn}
-        onClick={logOutHandler}
-        disabled={isLoggingOut}
-      >
+      <Button className={s.logBtn} onClick={logOutHandler}>
         Logout
       </Button>
       <div className={s.mobileMenu}>
@@ -60,4 +47,6 @@ export default function Navbar({ className }: NavbarProps) {
       </div>
     </div>
   )
-}
+})
+
+export default Navbar

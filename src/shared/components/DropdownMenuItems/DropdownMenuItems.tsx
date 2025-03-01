@@ -14,11 +14,12 @@ import { menuItems } from '@/shared/lib/linkItems/linkItems'
 import { LinkBlock } from '@/shared/components/LinkBlock/LinkBlock'
 import ThemeToggle from '@/shared/components/providers/ThemeProvider/ToggleTheme'
 import { useEffect } from 'react'
-import { useLogOutMutation } from '@/features/auth'
 import { LogoutIcon } from '@/shared/image/icons/LogoutIcon'
 import s from './DropdownMenuItems.module.css'
+import { useAuth } from '@/store/AuthContext'
 
 export function DropdownMenuItems() {
+  const auth = useAuth()
   const [open, setOpen] = React.useState(false)
   useEffect(() => {
     const handleResize = () => {
@@ -30,10 +31,9 @@ export function DropdownMenuItems() {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-  const [logout, { isLoading: isLoggingOut }] = useLogOutMutation()
 
   const logOutHandler = () => {
-    logout()
+    auth.logout()
   }
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -53,7 +53,7 @@ export function DropdownMenuItems() {
         {/* Тема */}
         <div className="flex justify-around p-2">
           <ThemeToggle />
-          <button onClick={logOutHandler} disabled={isLoggingOut}>
+          <button onClick={logOutHandler}>
             <LogoutIcon className={s.icon} />
           </button>
         </div>

@@ -1,29 +1,29 @@
 import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
 
-export async function POST() {
-  // if refreshTOken valid then create new refresh and access pair
-  // pay attention: prev refresh token should be added to black list
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export async function POST(req: Request) {
+  // Если refresh token действителен, генерируем новую пару токенов.
+  // Предыдущий refresh token можно добавить в чёрный список.
   await delay(1000)
-  const cookieStore = await cookies()
-  const refreshToken = cookieStore.get('refreshToken')
+  const cookieStore = cookies()
+  const refreshToken = (await cookieStore).get('refreshToken')
+
   if (!refreshToken) {
-    return new Response('Not authorized', {
-      status: 401,
-    })
+    return NextResponse.json('Not authorized', { status: 401 })
   }
 
   const now = new Date()
   const expirationDate = new Date(now.getTime() + 0.5 * 60 * 1000)
-
   const pseudoToken = { expirationDate: expirationDate, userId: 1 }
-  return Response.json(
+
+  return NextResponse.json(
     { accessToken: JSON.stringify(pseudoToken) },
     {
       headers: {
-        'Set-Cookie': `refreshToken=refreshToken` + now.getMilliseconds(),
+        'Set-Cookie': `refreshToken=refreshToken${now.getMilliseconds()}; HttpOnly`,
       },
     },
   )
 }
-
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))

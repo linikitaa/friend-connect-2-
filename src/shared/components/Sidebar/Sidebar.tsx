@@ -2,9 +2,9 @@
 
 import { clsx } from 'clsx'
 import s from './sidebar.module.css'
-import ThemeToggle from '@/shared/components/providers/ThemeProvider/ToggleTheme'
 import { LinkBlock } from '@/shared/components/LinkBlock/LinkBlock'
 import { menuItems } from '@/shared/lib/linkItems/linkItems'
+import ThemeToggle from '@/shared/components/providers/ThemeProvider/ToggleTheme'
 
 type SidebarProps = {
   className?: string

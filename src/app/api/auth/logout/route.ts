@@ -1,9 +1,11 @@
+import { NextResponse } from 'next/server'
+
 export async function DELETE(req: Request) {
-  return Response.json(
-    {},
+  return NextResponse.json(
+    { message: 'Logged out' },
     {
       headers: {
-        'Set-Cookie': `refreshToken=refreshToken1;HttpOnly;Max-Age=0;`,
+        'Set-Cookie': 'refreshToken=; HttpOnly; Max-Age=0;',
       },
     },
   )
