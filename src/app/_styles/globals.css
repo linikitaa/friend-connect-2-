@@ -10,6 +10,7 @@ body {
   :root {
     --navbar-background: #427d9d;
     --sidebar-background: #ddf2fd;
+    --modal-background: #ddf2fd;
     --sidebar-items-background: #fefeff;
     --border-color: #caedf9;
     --main-shadow-100: 1px 1px 2px 0 rgba(0, 0, 0, .3);
@@ -52,6 +53,7 @@ body {
   .dark {
     --navbar-background: #2b3539;
     --sidebar-background: #2b3539;
+    --modal-background: #1f2427;
     --sidebar-items-background: #cbf1f9;
     --border-color: #3e6a85;
     --main-color-100: #ddf2fd;
