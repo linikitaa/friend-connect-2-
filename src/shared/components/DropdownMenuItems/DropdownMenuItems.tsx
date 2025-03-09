@@ -43,14 +43,12 @@ export function DropdownMenuItems() {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {/* Генерация ссылок из menuItems */}
         {menuItems.map((item) => (
           <DropdownMenuItem asChild key={item.id}>
             <LinkBlock item={item} />
           </DropdownMenuItem>
         ))}
         <DropdownMenuSeparator />
-        {/* Тема */}
         <div className="flex justify-around p-2">
           <ThemeToggle />
           <button onClick={logOutHandler}>
